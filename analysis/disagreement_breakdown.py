@@ -6,7 +6,8 @@
 from __future__ import annotations
 from pathlib import Path
 from collections import Counter
-import json, sys
+import json
+import sys
 
 from analysis.parsers import parse_trivy
 

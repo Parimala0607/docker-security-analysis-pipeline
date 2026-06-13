@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 from pathlib import Path
-import json, subprocess, sys
+import json
+import subprocess
+import sys
 from datetime import datetime, timezone
 
 

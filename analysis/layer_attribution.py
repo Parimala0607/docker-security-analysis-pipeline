@@ -4,7 +4,8 @@
 
 from __future__ import annotations
 from pathlib import Path
-import json, sys
+import json
+import sys
 
 from analysis.parsers import parse_trivy
 

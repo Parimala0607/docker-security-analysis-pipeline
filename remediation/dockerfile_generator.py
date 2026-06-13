@@ -6,7 +6,8 @@
 
 from __future__ import annotations
 from pathlib import Path
-import json, sys
+import json
+import sys
 
 # Map Trivy's Metadata.OS.Family to the correct non-root user commands.
 # Emitting Alpine's `adduser -S` on a Debian image fails the build, so the

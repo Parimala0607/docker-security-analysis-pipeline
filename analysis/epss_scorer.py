@@ -4,7 +4,10 @@
 
 from __future__ import annotations
 from pathlib import Path
-import json, sys, logging, time
+import json
+import sys
+import logging
+import time
 import requests
 
 from analysis.models import CVE

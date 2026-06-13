@@ -4,7 +4,8 @@
 
 from __future__ import annotations
 from pathlib import Path
-import json, sys
+import json
+import sys
 
 from analysis.models import ValidationResult
 from analysis.parsers import ids_from_trivy, ids_from_grype
