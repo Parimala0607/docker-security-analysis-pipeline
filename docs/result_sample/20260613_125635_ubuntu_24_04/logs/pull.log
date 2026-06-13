@@ -1,0 +1,4 @@
+24.04: Pulling from library/ubuntu
+Digest: sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54
+Status: Image is up to date for ubuntu:24.04
+docker.io/library/ubuntu:24.04

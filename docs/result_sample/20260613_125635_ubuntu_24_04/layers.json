@@ -1,0 +1,410 @@
+[
+  {
+    "cve": "CVE-2026-27456",
+    "package": "bsdutils",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "libblkid1",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4046",
+    "package": "libc-bin",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4437",
+    "package": "libc-bin",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4438",
+    "package": "libc-bin",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-5435",
+    "package": "libc-bin",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-6238",
+    "package": "libc-bin",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4046",
+    "package": "libc6",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4437",
+    "package": "libc6",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-4438",
+    "package": "libc6",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-5435",
+    "package": "libc6",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-6238",
+    "package": "libc6",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-41989",
+    "package": "libgcrypt20",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2024-2236",
+    "package": "libgcrypt20",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-33845",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-33846",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-3832",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-3833",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42009",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42010",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42011",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42012",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42013",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42014",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42015",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-5260",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-5419",
+    "package": "libgnutls30t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-34743",
+    "package": "liblzma5",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "libmount1",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "libsmartcols1",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-45447",
+    "package": "libssl3t64",
+    "severity": "HIGH",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-34182",
+    "package": "libssl3t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-45445",
+    "package": "libssl3t64",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-34180",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42766",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42767",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-42770",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-45446",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-7383",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-9076",
+    "package": "libssl3t64",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-40226",
+    "package": "libsystemd0",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-40228",
+    "package": "libsystemd0",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-40226",
+    "package": "libudev1",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-40228",
+    "package": "libudev1",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "libuuid1",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2024-56433",
+    "package": "login",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "mount",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2024-56433",
+    "package": "passwd",
+    "severity": "LOW",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2025-45582",
+    "package": "tar",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-5704",
+    "package": "tar",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  },
+  {
+    "cve": "CVE-2026-27456",
+    "package": "util-linux",
+    "severity": "MEDIUM",
+    "pkg_type": "unknown",
+    "origin": "unknown",
+    "source": "unknown"
+  }
+]

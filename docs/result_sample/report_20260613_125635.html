@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Security Report — ubuntu:24.04</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ffffff; color: #0f172a; font-family: 'JetBrains Mono', monospace; padding: 40px; }
+  h1   { font-size: 1.6rem; color: #0f172a; margin-bottom: 4px; }
+  h2   { font-size: 1rem; color: #334155; margin: 32px 0 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; }
+  .meta { font-size: 0.75rem; color: #475569; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+  .card .num  { font-size: 2rem; font-weight: 700; }
+  .card .lbl  { font-size: 0.7rem; color: #64748b; margin-top: 4px; }
+  .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; background: #f8fafc; color: #475569; margin: 0 4px 4px 0; border: 1px solid #e2e8f0; }
+  .CRITICAL   { color: #dc2626; }
+  .HIGH       { color: #f97316; }
+  .MEDIUM     { color: #eab308; }
+  .LOW        { color: #22c55e; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 32px; }
+  th    { background: #f8fafc; padding: 10px 12px; text-align: left; color: #334155; font-weight: 600; border-bottom: 1px solid #e2e8f0; }
+  td    { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+  .bg-CRITICAL { background: #dc262622; color: #dc2626; }
+  .bg-HIGH     { background: #f9731622; color: #f97316; }
+  .bg-MEDIUM   { background: #eab30822; color: #eab308; }
+  .bg-LOW      { background: #22c55e22; color: #22c55e; }
+  .bg-P1       { background: #dc262633; color: #fca5a5; }
+  .bg-P2       { background: #f9731622; color: #fdba74; }
+  .bg-P3       { background: #f1f5f9;   color: #64748b; }
+  .bg-AFFECTED { background: #fee2e2; color: #b91c1c; }
+  .bg-NOT-AFFECTED { background: #ecfccb; color: #3f6212; }
+  .bg-EXPLOITABLE { background: #fee2e2; color: #991b1b; }
+  .bg-IN-TRIAGE { background: #ede9fe; color: #6d28d9; }
+  .bg-FALSE-POSITIVE { background: #e2e8f0; color: #334155; }
+  .bg-FIXED { background: #d1fae5; color: #065f46; }
+  .bg-UNKNOWN { background: #f8fafc; color: #64748b; }
+  .bg-REACHABLE { background: #fee2e2; color: #b91c1c; }
+  .bg-NOT-REACHABLE { background: #d1fae5; color: #065f46; }
+  .bg-UNKNOWN-REACHABILITY { background: #f8fafc; color: #64748b; }
+  .kev  { color: #dc2626; font-weight: 700; }
+  .chart { margin-bottom: 32px; }
+  .fp-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .fp-stat .num { font-size: 1.4rem; font-weight: 700; color: #f97316; }
+  .fp-stat .lbl { font-size: 0.7rem; color: #64748b; }
+  .small-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+  .small-box .num { font-size: 1.5rem; font-weight: 700; }
+  .small-box .lbl { font-size: 0.7rem; color: #64748b; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Docker Security Analysis Report</h1>
+<div class="meta">
+  Image: <strong>ubuntu:24.04</strong>
+  &nbsp;|&nbsp; Generated: 13 Jun 2026 12:56
+  
+  &nbsp;|&nbsp; Digest: <strong>ubuntu@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54</strong>
+  
+</div>
+
+
+<h2>Execution Context</h2>
+<div class="grid-3">
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">2026-06-13T16:56:35.781714+00:00</div>
+    <div class="lbl">Scan started (UTC)</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">Version: 0.70.0</div>
+    <div class="lbl">Trivy version</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">grype 0.112.0</div>
+    <div class="lbl">Grype version</div>
+  </div>
+</div>
+<div style="margin-bottom:24px;">
+  <span class="pill">Dockle: dockle version 0.4.15</span>
+  <span class="pill">Syft: syft 1.44.0</span>
+  <span class="pill">Image digest: ubuntu@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54</span>
+</div>
+
+<div style="margin-bottom:24px;">
+  <span class="pill">Trivy DB/status: Version: 0.70.0 Vulnerability DB:   Version: 2   UpdatedAt: 2026-06-13 13:09:43.935008726 +0000 UTC   NextUpdate: 2026-06-14 13:09:43.935008476 +0000 UTC  ...</span>
+  <span class="pill">Grype DB/status: Path:      /home/codep/.cache/grype/db/6/vulnerability.db Schema:    v6.1.7 Built:     2026-06-13T07:33:12Z From:     ...</span>
+</div>
+
+
+
+
+<h2>Scanner Run Status</h2>
+<table>
+  <thead><tr><th>Scanner</th><th>Status</th><th>Log</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>trivy</td>
+      <td><span class="badge bg-LOW">ok</span></td>
+      <td style="color:#64748b">results/20260613_125635_ubuntu_24_04/logs/trivy.log</td>
+    </tr>
+    
+    <tr>
+      <td>grype</td>
+      <td><span class="badge bg-LOW">ok</span></td>
+      <td style="color:#64748b">results/20260613_125635_ubuntu_24_04/logs/grype.log</td>
+    </tr>
+    
+    <tr>
+      <td>dockle</td>
+      <td><span class="badge bg-LOW">ok</span></td>
+      <td style="color:#64748b">results/20260613_125635_ubuntu_24_04/logs/dockle.log</td>
+    </tr>
+    
+    <tr>
+      <td>syft</td>
+      <td><span class="badge bg-LOW">ok</span></td>
+      <td style="color:#64748b">results/20260613_125635_ubuntu_24_04/logs/syft.log</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+<h2>Risk Policy</h2>
+<div style="margin-bottom:24px;">
+  <span class="pill">Status: PASS</span>
+  <span class="pill">Enforced: no</span>
+  <span class="pill">Prioritized findings: 0</span>
+</div>
+
+
+
+<!-- Severity Summary Cards -->
+<div class="grid">
+  
+  <div class="card">
+    <div class="num CRITICAL">0</div>
+    <div class="lbl">CRITICAL</div>
+  </div>
+  
+  <div class="card">
+    <div class="num HIGH">1</div>
+    <div class="lbl">HIGH</div>
+  </div>
+  
+  <div class="card">
+    <div class="num MEDIUM">37</div>
+    <div class="lbl">MEDIUM</div>
+  </div>
+  
+  <div class="card">
+    <div class="num LOW">13</div>
+    <div class="lbl">LOW</div>
+  </div>
+  
+</div>
+
+<h2>Priority Summary</h2>
+<div class="grid-3">
+  <div class="small-box">
+    <div class="num" style="color:#dc2626">0</div>
+    <div class="lbl">P1 - patch immediately</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#f97316">1</div>
+    <div class="lbl">P2 - patch this sprint</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#64748b">50</div>
+    <div class="lbl">P3 - monitor / backlog</div>
+  </div>
+</div>
+
+
+
+<!-- Chart -->
+<div class="chart">
+  <img src="data:image/png;base64,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" alt="Severity Chart" style="max-width:500px;">
+</div>
+
+<!-- FP/FN Summary -->
+<h2>Scanner Disagreement Analysis</h2>
+<div style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">
+  This section is a heuristic comparison of Trivy and Grype findings.
+</div>
+<div class="fp-box">
+  <div class="fp-stat">
+    <div class="num">0.0%</div>
+    <div class="lbl">Trivy-only disagreement</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#dc2626">36.21%</div>
+    <div class="lbl">Grype-only disagreement</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#00ff88">37</div>
+    <div class="lbl">Findings seen by both scanners</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#a855f7">0</div>
+    <div class="lbl">CVEs in CISA KEV (actively exploited)</div>
+  </div>
+</div>
+
+<!-- CVE Table -->
+<h2>CVE Findings — Prioritised by Risk Score</h2>
+<table>
+  <thead>
+    <tr>
+      <th>CVE ID</th>
+      <th>Package</th>
+      <th>Severity</th>
+      <th>CVSS</th>
+      <th>EPSS</th>
+      <th>KEV</th>
+      <th>VEX</th>
+      <th>Reachability</th>
+      <th>Risk Score</th>
+      <th>Priority</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45447" target="_blank" style="color:#58a6ff">CVE-2026-45447</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-HIGH">HIGH</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.8</td>
+      <td><span class="badge bg-P2">P2-HIGH</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>bsdutils</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>libblkid1</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4046" target="_blank" style="color:#58a6ff">CVE-2026-4046</a></td>
+      <td>libc-bin</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4437" target="_blank" style="color:#58a6ff">CVE-2026-4437</a></td>
+      <td>libc-bin</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4438" target="_blank" style="color:#58a6ff">CVE-2026-4438</a></td>
+      <td>libc-bin</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5435" target="_blank" style="color:#58a6ff">CVE-2026-5435</a></td>
+      <td>libc-bin</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-6238" target="_blank" style="color:#58a6ff">CVE-2026-6238</a></td>
+      <td>libc-bin</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4046" target="_blank" style="color:#58a6ff">CVE-2026-4046</a></td>
+      <td>libc6</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4437" target="_blank" style="color:#58a6ff">CVE-2026-4437</a></td>
+      <td>libc6</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4438" target="_blank" style="color:#58a6ff">CVE-2026-4438</a></td>
+      <td>libc6</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5435" target="_blank" style="color:#58a6ff">CVE-2026-5435</a></td>
+      <td>libc6</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-6238" target="_blank" style="color:#58a6ff">CVE-2026-6238</a></td>
+      <td>libc6</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41989" target="_blank" style="color:#58a6ff">CVE-2026-41989</a></td>
+      <td>libgcrypt20</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">1.10.3-2ubuntu0.1</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33845" target="_blank" style="color:#58a6ff">CVE-2026-33845</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>9.1</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33846" target="_blank" style="color:#58a6ff">CVE-2026-33846</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-3832" target="_blank" style="color:#58a6ff">CVE-2026-3832</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-3833" target="_blank" style="color:#58a6ff">CVE-2026-3833</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>7.4</td>
+      <td>0.2%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42009" target="_blank" style="color:#58a6ff">CVE-2026-42009</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.7%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42010" target="_blank" style="color:#58a6ff">CVE-2026-42010</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>9.8</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42011" target="_blank" style="color:#58a6ff">CVE-2026-42011</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42012" target="_blank" style="color:#58a6ff">CVE-2026-42012</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42013" target="_blank" style="color:#58a6ff">CVE-2026-42013</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42014" target="_blank" style="color:#58a6ff">CVE-2026-42014</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42015" target="_blank" style="color:#58a6ff">CVE-2026-42015</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.2%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5260" target="_blank" style="color:#58a6ff">CVE-2026-5260</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.2%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5419" target="_blank" style="color:#58a6ff">CVE-2026-5419</a></td>
+      <td>libgnutls30t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.8.3-1.1ubuntu3.6</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>libmount1</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>libsmartcols1</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34182" target="_blank" style="color:#58a6ff">CVE-2026-34182</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45445" target="_blank" style="color:#58a6ff">CVE-2026-45445</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40226" target="_blank" style="color:#58a6ff">CVE-2026-40226</a></td>
+      <td>libsystemd0</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">255.4-1ubuntu8.16</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40226" target="_blank" style="color:#58a6ff">CVE-2026-40226</a></td>
+      <td>libudev1</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">255.4-1ubuntu8.16</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>libuuid1</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>mount</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-45582" target="_blank" style="color:#58a6ff">CVE-2025-45582</a></td>
+      <td>tar</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5704" target="_blank" style="color:#58a6ff">CVE-2026-5704</a></td>
+      <td>tar</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>5.5</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-27456" target="_blank" style="color:#58a6ff">CVE-2026-27456</a></td>
+      <td>util-linux</td>
+      <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.5</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-2236" target="_blank" style="color:#58a6ff">CVE-2024-2236</a></td>
+      <td>libgcrypt20</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.7%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34743" target="_blank" style="color:#58a6ff">CVE-2026-34743</a></td>
+      <td>liblzma5</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>5.3</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">5.6.1+really5.4.5-1ubuntu0.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34180" target="_blank" style="color:#58a6ff">CVE-2026-34180</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42766" target="_blank" style="color:#58a6ff">CVE-2026-42766</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42767" target="_blank" style="color:#58a6ff">CVE-2026-42767</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42770" target="_blank" style="color:#58a6ff">CVE-2026-42770</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45446" target="_blank" style="color:#58a6ff">CVE-2026-45446</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-7383" target="_blank" style="color:#58a6ff">CVE-2026-7383</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-9076" target="_blank" style="color:#58a6ff">CVE-2026-9076</a></td>
+      <td>libssl3t64</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">3.0.13-0ubuntu3.11</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40228" target="_blank" style="color:#58a6ff">CVE-2026-40228</a></td>
+      <td>libsystemd0</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>3.3</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40228" target="_blank" style="color:#58a6ff">CVE-2026-40228</a></td>
+      <td>libudev1</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>3.3</td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-56433" target="_blank" style="color:#58a6ff">CVE-2024-56433</a></td>
+      <td>login</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>6.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-56433" target="_blank" style="color:#58a6ff">CVE-2024-56433</a></td>
+      <td>passwd</td>
+      <td><span class="badge bg-LOW">LOW</span></td>
+      <td>0.0</td>
+      <td>6.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td><span class="badge bg-UNKNOWN">unknown</span></td>
+      <td>0.2</td>
+      <td><span class="badge bg-P3">P3-MONITOR</span></td>
+      <td style="color:#86efac">N/A</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<!-- Dockle CIS Findings -->
+
+<h2>CIS Benchmark Findings (Dockle)</h2>
+<table>
+  <thead><tr><th>Check ID</th><th>Level</th><th>Title</th><th>Details</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>CIS-DI-0001</td>
+      <td><span class="badge bg-WARN">WARN</span></td>
+      <td>Create a user for the container</td>
+      <td style="color:#94a3b8"></td>
+    </tr>
+    
+    <tr>
+      <td>CIS-DI-0005</td>
+      <td><span class="badge bg-INFO">INFO</span></td>
+      <td>Enable Content trust for Docker</td>
+      <td style="color:#94a3b8"></td>
+    </tr>
+    
+    <tr>
+      <td>CIS-DI-0006</td>
+      <td><span class="badge bg-INFO">INFO</span></td>
+      <td>Add HEALTHCHECK instruction to the container image</td>
+      <td style="color:#94a3b8"></td>
+    </tr>
+    
+    <tr>
+      <td>CIS-DI-0008</td>
+      <td><span class="badge bg-INFO">INFO</span></td>
+      <td>Confirm safety of setuid/setgid files</td>
+      <td style="color:#94a3b8"></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+<h2>Report Notes</h2>
+<div style="font-size:0.8rem; color:#94a3b8; line-height:1.6; margin-bottom:32px;">
+  <p>This report is strongest when paired with asset context: internet exposure, environment, and service ownership. Use P1/P2 grouping as the primary triage view. CVSS severity alone is not a complete prioritization signal.</p>
+</div>
+
+<div style="margin-top:48px; font-size:0.7rem; color:#334155; text-align:center;">
+  Generated by docker-security-pipeline · Data sources: Trivy, Grype, Dockle, Syft, NVD, EPSS, CISA KEV
+</div>
+
+</body>
+</html>

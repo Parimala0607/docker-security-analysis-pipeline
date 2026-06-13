@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "enforced": false,
+  "criteria": {
+    "in_kev": true,
+    "epss_any_threshold": 0.7,
+    "critical_epss_threshold": 0.2
+  },
+  "violation_count": 0,
+  "violations": []
+}

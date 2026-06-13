@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Batch Security Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f8fafc; color: #0f172a; font-family: 'JetBrains Mono', monospace; padding: 40px; }
+  h1   { font-size: 1.7rem; margin-bottom: 6px; }
+  h2   { font-size: 1rem; color: #334155; margin: 30px 0 12px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; }
+  .meta { font-size: 0.78rem; color: #475569; margin-bottom: 26px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05); }
+  .card .num { font-size: 2rem; font-weight: 700; }
+  .card .lbl { font-size: 0.72rem; color: #64748b; margin-top: 4px; }
+  .CRITICAL { color: #dc2626; }
+  .HIGH     { color: #f97316; }
+  .MEDIUM   { color: #eab308; }
+  .LOW      { color: #22c55e; }
+  .pill { display: inline-block; margin: 0 6px 6px 0; padding: 3px 8px; border-radius: 999px; border: 1px solid #e2e8f0; background: #fff; color: #475569; font-size: 0.75rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 28px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+  th { background: #f1f5f9; padding: 10px 12px; text-align: left; color: #334155; border-bottom: 1px solid #e2e8f0; }
+  td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+  .bg-CRITICAL { background: #dc262622; color: #dc2626; }
+  .bg-HIGH     { background: #f9731622; color: #f97316; }
+  .bg-MEDIUM   { background: #eab30822; color: #eab308; }
+  .bg-LOW      { background: #22c55e22; color: #22c55e; }
+  .bg-P1       { background: #dc262633; color: #fca5a5; }
+  .bg-P2       { background: #f9731622; color: #fdba74; }
+  .bg-P3       { background: #f1f5f9; color: #64748b; }
+  .subtle { color: #64748b; }
+</style>
+</head>
+<body>
+
+<h1>Docker Security Batch Report</h1>
+<div class="meta">
+  Generated: 13 Jun 2026 12:56 &nbsp;|&nbsp; Images scanned: <strong>28</strong>
+</div>
+
+<div class="grid">
+  
+  <div class="card">
+    <div class="num CRITICAL">207</div>
+    <div class="lbl">CRITICAL findings across the batch</div>
+  </div>
+  
+  <div class="card">
+    <div class="num HIGH">2622</div>
+    <div class="lbl">HIGH findings across the batch</div>
+  </div>
+  
+  <div class="card">
+    <div class="num MEDIUM">9220</div>
+    <div class="lbl">MEDIUM findings across the batch</div>
+  </div>
+  
+  <div class="card">
+    <div class="num LOW">4695</div>
+    <div class="lbl">LOW findings across the batch</div>
+  </div>
+  
+</div>
+
+<div style="margin-bottom:24px;">
+  <span class="pill">Avg Trivy-only: 13.74%</span>
+  <span class="pill">Avg Grype-only: 29.52%</span>
+  <span class="pill">Total images: 28</span>
+</div>
+
+<h2>Most Vulnerable Images</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>CRITICAL</th>
+      <th>HIGH</th>
+      <th>MEDIUM</th>
+      <th>LOW</th>
+      <th>KEV</th>
+      <th>Trivy-only %</th>
+      <th>Grype-only %</th>
+      <th>Findings</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><strong>wordpress:6.6-php8.3-apache</strong><br><span class="subtle">results/20260613_130726_wordpress_6_6-php8_3-apache</span></td>
+      <td><span class="badge bg-CRITICAL">68</span></td>
+      <td><span class="badge bg-HIGH">961</span></td>
+      <td><span class="badge bg-MEDIUM">3228</span></td>
+      <td><span class="badge bg-LOW">1029</span></td>
+      <td>7</td>
+      <td>86.43</td>
+      <td>4.16</td>
+      <td>5301</td>
+    </tr>
+    
+    <tr>
+      <td><strong>golang:1.23</strong><br><span class="subtle">results/20260613_130411_golang_1_23</span></td>
+      <td><span class="badge bg-CRITICAL">43</span></td>
+      <td><span class="badge bg-HIGH">764</span></td>
+      <td><span class="badge bg-MEDIUM">2544</span></td>
+      <td><span class="badge bg-LOW">929</span></td>
+      <td>3</td>
+      <td>88.49</td>
+      <td>2.39</td>
+      <td>4285</td>
+    </tr>
+    
+    <tr>
+      <td><strong>drupal:11-php8.3-apache</strong><br><span class="subtle">results/20260613_130850_drupal_11-php8_3-apache</span></td>
+      <td><span class="badge bg-CRITICAL">27</span></td>
+      <td><span class="badge bg-HIGH">381</span></td>
+      <td><span class="badge bg-MEDIUM">1866</span></td>
+      <td><span class="badge bg-LOW">915</span></td>
+      <td>1</td>
+      <td>87.07</td>
+      <td>3.04</td>
+      <td>3202</td>
+    </tr>
+    
+    <tr>
+      <td><strong>php:8.3-apache</strong><br><span class="subtle">results/20260613_130319_php_8_3-apache</span></td>
+      <td><span class="badge bg-CRITICAL">17</span></td>
+      <td><span class="badge bg-HIGH">89</span></td>
+      <td><span class="badge bg-MEDIUM">330</span></td>
+      <td><span class="badge bg-LOW">667</span></td>
+      <td>0</td>
+      <td>67.61</td>
+      <td>0.0</td>
+      <td>1107</td>
+    </tr>
+    
+    <tr>
+      <td><strong>nginx:1.27</strong><br><span class="subtle">results/20260613_125707_nginx_1_27</span></td>
+      <td><span class="badge bg-CRITICAL">9</span></td>
+      <td><span class="badge bg-HIGH">69</span></td>
+      <td><span class="badge bg-MEDIUM">147</span></td>
+      <td><span class="badge bg-LOW">177</span></td>
+      <td>0</td>
+      <td>2.68</td>
+      <td>1.17</td>
+      <td>405</td>
+    </tr>
+    
+    <tr>
+      <td><strong>jenkins/jenkins:lts-jdk21</strong><br><span class="subtle">results/20260613_131400_jenkins_jenkins_lts-jdk21</span></td>
+      <td><span class="badge bg-CRITICAL">9</span></td>
+      <td><span class="badge bg-HIGH">45</span></td>
+      <td><span class="badge bg-MEDIUM">89</span></td>
+      <td><span class="badge bg-LOW">124</span></td>
+      <td>0</td>
+      <td>2.99</td>
+      <td>23.98</td>
+      <td>271</td>
+    </tr>
+    
+    <tr>
+      <td><strong>postgres:16</strong><br><span class="subtle">results/20260613_125800_postgres_16</span></td>
+      <td><span class="badge bg-CRITICAL">9</span></td>
+      <td><span class="badge bg-HIGH">41</span></td>
+      <td><span class="badge bg-MEDIUM">79</span></td>
+      <td><span class="badge bg-LOW">117</span></td>
+      <td>0</td>
+      <td>3.67</td>
+      <td>7.89</td>
+      <td>250</td>
+    </tr>
+    
+    <tr>
+      <td><strong>traefik:v3.1</strong><br><span class="subtle">results/20260613_131014_traefik_v3_1</span></td>
+      <td><span class="badge bg-CRITICAL">5</span></td>
+      <td><span class="badge bg-HIGH">46</span></td>
+      <td><span class="badge bg-MEDIUM">57</span></td>
+      <td><span class="badge bg-LOW">29</span></td>
+      <td>0</td>
+      <td>0.95</td>
+      <td>36.59</td>
+      <td>137</td>
+    </tr>
+    
+    <tr>
+      <td><strong>mongo:7</strong><br><span class="subtle">results/20260613_125958_mongo_7</span></td>
+      <td><span class="badge bg-CRITICAL">1</span></td>
+      <td><span class="badge bg-HIGH">79</span></td>
+      <td><span class="badge bg-MEDIUM">76</span></td>
+      <td><span class="badge bg-LOW">30</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>45.45</td>
+      <td>186</td>
+    </tr>
+    
+    <tr>
+      <td><strong>node:22-bookworm-slim</strong><br><span class="subtle">results/20260613_130237_node_22-bookworm-slim</span></td>
+      <td><span class="badge bg-CRITICAL">3</span></td>
+      <td><span class="badge bg-HIGH">8</span></td>
+      <td><span class="badge bg-MEDIUM">42</span></td>
+      <td><span class="badge bg-LOW">68</span></td>
+      <td>0</td>
+      <td>7.94</td>
+      <td>0.0</td>
+      <td>122</td>
+    </tr>
+    
+    <tr>
+      <td><strong>registry:2</strong><br><span class="subtle">results/20260613_131349_registry_2</span></td>
+      <td><span class="badge bg-CRITICAL">2</span></td>
+      <td><span class="badge bg-HIGH">18</span></td>
+      <td><span class="badge bg-MEDIUM">39</span></td>
+      <td><span class="badge bg-LOW">3</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>24.39</td>
+      <td>62</td>
+    </tr>
+    
+    <tr>
+      <td><strong>redis:7.4</strong><br><span class="subtle">results/20260613_125745_redis_7_4</span></td>
+      <td><span class="badge bg-CRITICAL">3</span></td>
+      <td><span class="badge bg-HIGH">7</span></td>
+      <td><span class="badge bg-MEDIUM">39</span></td>
+      <td><span class="badge bg-LOW">70</span></td>
+      <td>0</td>
+      <td>8.2</td>
+      <td>3.45</td>
+      <td>120</td>
+    </tr>
+    
+    <tr>
+      <td><strong>debian:bookworm-slim</strong><br><span class="subtle">results/20260613_125647_debian_bookworm-slim</span></td>
+      <td><span class="badge bg-CRITICAL">3</span></td>
+      <td><span class="badge bg-HIGH">7</span></td>
+      <td><span class="badge bg-MEDIUM">39</span></td>
+      <td><span class="badge bg-LOW">68</span></td>
+      <td>0</td>
+      <td>8.47</td>
+      <td>0.0</td>
+      <td>118</td>
+    </tr>
+    
+    <tr>
+      <td><strong>httpd:2.4</strong><br><span class="subtle">results/20260613_125729_httpd_2_4</span></td>
+      <td><span class="badge bg-CRITICAL">2</span></td>
+      <td><span class="badge bg-HIGH">13</span></td>
+      <td><span class="badge bg-MEDIUM">51</span></td>
+      <td><span class="badge bg-LOW">99</span></td>
+      <td>0</td>
+      <td>4.3</td>
+      <td>2.2</td>
+      <td>166</td>
+    </tr>
+    
+    <tr>
+      <td><strong>python:3.12-slim</strong><br><span class="subtle">results/20260613_130304_python_3_12-slim</span></td>
+      <td><span class="badge bg-CRITICAL">2</span></td>
+      <td><span class="badge bg-HIGH">8</span></td>
+      <td><span class="badge bg-MEDIUM">35</span></td>
+      <td><span class="badge bg-LOW">64</span></td>
+      <td>0</td>
+      <td>7.69</td>
+      <td>30.43</td>
+      <td>110</td>
+    </tr>
+    
+    <tr>
+      <td><strong>mariadb:11.4</strong><br><span class="subtle">results/20260613_125934_mariadb_11_4</span></td>
+      <td><span class="badge bg-CRITICAL">1</span></td>
+      <td><span class="badge bg-HIGH">16</span></td>
+      <td><span class="badge bg-MEDIUM">58</span></td>
+      <td><span class="badge bg-LOW">26</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>41.09</td>
+      <td>101</td>
+    </tr>
+    
+    <tr>
+      <td><strong>memcached:1.6</strong><br><span class="subtle">results/20260613_130202_memcached_1_6</span></td>
+      <td><span class="badge bg-CRITICAL">2</span></td>
+      <td><span class="badge bg-HIGH">7</span></td>
+      <td><span class="badge bg-MEDIUM">32</span></td>
+      <td><span class="badge bg-LOW">62</span></td>
+      <td>0</td>
+      <td>8.33</td>
+      <td>0.0</td>
+      <td>104</td>
+    </tr>
+    
+    <tr>
+      <td><strong>mysql:8.4</strong><br><span class="subtle">results/20260613_125831_mysql_8_4</span></td>
+      <td><span class="badge bg-CRITICAL">1</span></td>
+      <td><span class="badge bg-HIGH">17</span></td>
+      <td><span class="badge bg-MEDIUM">22</span></td>
+      <td><span class="badge bg-LOW">6</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>25.81</td>
+      <td>46</td>
+    </tr>
+    
+    <tr>
+      <td><strong>eclipse-temurin:21-jdk</strong><br><span class="subtle">results/20260613_130545_eclipse-temurin_21-jdk</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">11</span></td>
+      <td><span class="badge bg-MEDIUM">92</span></td>
+      <td><span class="badge bg-LOW">43</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>39.53</td>
+      <td>146</td>
+    </tr>
+    
+    <tr>
+      <td><strong>eclipse-temurin:21-jre</strong><br><span class="subtle">results/20260613_130636_eclipse-temurin_21-jre</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">11</span></td>
+      <td><span class="badge bg-MEDIUM">92</span></td>
+      <td><span class="badge bg-LOW">35</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>32.46</td>
+      <td>138</td>
+    </tr>
+    
+    <tr>
+      <td><strong>grafana/grafana:latest</strong><br><span class="subtle">results/20260613_131100_grafana_grafana_latest</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">14</span></td>
+      <td><span class="badge bg-MEDIUM">16</span></td>
+      <td><span class="badge bg-LOW">20</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>51.52</td>
+      <td>50</td>
+    </tr>
+    
+    <tr>
+      <td><strong>rabbitmq:3-management</strong><br><span class="subtle">results/20260613_130216_rabbitmq_3-management</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">3</span></td>
+      <td><span class="badge bg-MEDIUM">97</span></td>
+      <td><span class="badge bg-LOW">45</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>63.41</td>
+      <td>145</td>
+    </tr>
+    
+    <tr>
+      <td><strong>tomcat:10.1</strong><br><span class="subtle">results/20260613_130702_tomcat_10_1</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">2</span></td>
+      <td><span class="badge bg-MEDIUM">101</span></td>
+      <td><span class="badge bg-LOW">36</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>48.91</td>
+      <td>139</td>
+    </tr>
+    
+    <tr>
+      <td><strong>ubuntu:24.04</strong><br><span class="subtle">results/20260613_125635_ubuntu_24_04</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">1</span></td>
+      <td><span class="badge bg-MEDIUM">37</span></td>
+      <td><span class="badge bg-LOW">13</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>36.21</td>
+      <td>51</td>
+    </tr>
+    
+    <tr>
+      <td><strong>hashicorp/vault:latest</strong><br><span class="subtle">results/20260613_131259_hashicorp_vault_latest</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">2</span></td>
+      <td><span class="badge bg-MEDIUM">8</span></td>
+      <td><span class="badge bg-LOW">20</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>16.67</td>
+      <td>30</td>
+    </tr>
+    
+    <tr>
+      <td><strong>prom/prometheus:latest</strong><br><span class="subtle">results/20260613_131235_prom_prometheus_latest</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">2</span></td>
+      <td><span class="badge bg-MEDIUM">4</span></td>
+      <td><span class="badge bg-LOW">0</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>85.71</td>
+      <td>6</td>
+    </tr>
+    
+    <tr>
+      <td><strong>alpine:3.20</strong><br><span class="subtle">results/20260613_125625_alpine_3_20</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">0</span></td>
+      <td><span class="badge bg-MEDIUM">0</span></td>
+      <td><span class="badge bg-LOW">0</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0</td>
+    </tr>
+    
+    <tr>
+      <td><strong>busybox:1.36</strong><br><span class="subtle">results/20260613_125700_busybox_1_36</span></td>
+      <td><span class="badge bg-CRITICAL">0</span></td>
+      <td><span class="badge bg-HIGH">0</span></td>
+      <td><span class="badge bg-MEDIUM">0</span></td>
+      <td><span class="badge bg-LOW">0</span></td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<h2>Top Risk Findings Across the Batch</h2>
+<table>
+  <thead>
+    <tr>
+      <th>CVE</th>
+      <th>Image</th>
+      <th>Package</th>
+      <th>Severity</th>
+      <th>EPSS</th>
+      <th>KEV</th>
+      <th>Priority</th>
+      <th>Risk</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-27363" target="_blank" style="color:#2563eb">CVE-2025-27363</a></td>
+      <td>wordpress:6.6-php8.3-apache</td>
+      <td>libfreetype6</td>
+      <td><span class="badge bg-HIGH">HIGH</span></td>
+      <td>70.3%</td>
+      <td><strong style="color:#dc2626">YES</strong></td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">2.12.1+dfsg-5+deb12u4</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>postgres:16</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>mysql:8.4</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>mariadb:11.4</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>mongo:7</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>golang:1.23</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>traefik:v3.1</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>registry:2</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-68121" target="_blank" style="color:#2563eb">CVE-2025-68121</a></td>
+      <td>jenkins/jenkins:lts-jdk21</td>
+      <td>stdlib</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">1.24.13, 1.25.7, 1.26.0-rc.3</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-24425" target="_blank" style="color:#2563eb">CVE-2026-24425</a></td>
+      <td>drupal:11-php8.3-apache</td>
+      <td>twig/twig</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">3.0.0, 3.26.0</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>debian:bookworm-slim</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853" target="_blank" style="color:#2563eb">CVE-2023-45853</a></td>
+      <td>debian:bookworm-slim</td>
+      <td>zlib1g</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>1.4%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-6879" target="_blank" style="color:#2563eb">CVE-2023-6879</a></td>
+      <td>nginx:1.27</td>
+      <td>libaom3</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.2%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42010" target="_blank" style="color:#2563eb">CVE-2026-42010</a></td>
+      <td>nginx:1.27</td>
+      <td>libgnutls30</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.1%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">3.7.9-2+deb12u7</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-31789" target="_blank" style="color:#2563eb">CVE-2026-31789</a></td>
+      <td>nginx:1.27</td>
+      <td>libssl3</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">3.0.19-1~deb12u2</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-56171" target="_blank" style="color:#2563eb">CVE-2024-56171</a></td>
+      <td>nginx:1.27</td>
+      <td>libxml2</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.2%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">2.9.14+dfsg-1.3~deb12u2</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-31789" target="_blank" style="color:#2563eb">CVE-2026-31789</a></td>
+      <td>nginx:1.27</td>
+      <td>openssl</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">3.0.19-1~deb12u2</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>nginx:1.27</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853" target="_blank" style="color:#2563eb">CVE-2023-45853</a></td>
+      <td>nginx:1.27</td>
+      <td>zlib1g</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>1.4%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>httpd:2.4</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>redis:7.4</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853" target="_blank" style="color:#2563eb">CVE-2023-45853</a></td>
+      <td>redis:7.4</td>
+      <td>zlib1g</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>1.4%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>postgres:16</td>
+      <td>libperl5.40</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>postgres:16</td>
+      <td>perl</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>postgres:16</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>postgres:16</td>
+      <td>perl-modules-5.40</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>memcached:1.6</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>node:22-bookworm-slim</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853" target="_blank" style="color:#2563eb">CVE-2023-45853</a></td>
+      <td>node:22-bookworm-slim</td>
+      <td>zlib1g</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>1.4%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>python:3.12-slim</td>
+      <td>perl-base</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8376" target="_blank" style="color:#2563eb">CVE-2026-8376</a></td>
+      <td>php:8.3-apache</td>
+      <td>libperl5.40</td>
+      <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+      <td>0.0%</td>
+      <td>—</td>
+      <td><span class="badge bg-P1">P1-CRITICAL</span></td>
+      <td>1.0</td>
+      <td style="color:#059669">N/A</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<h2>Notes</h2>
+<div class="subtle" style="font-size:0.8rem; line-height:1.6;">
+  <p>The batch report summarises the latest scan directory for each image in results/ and ranks findings by the existing pipeline risk score. Use it as a triage map, then open the per-image HTML reports for deeper context when you need a full breakdown.</p>
+</div>
+
+</body>
+</html>

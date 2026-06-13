@@ -1,0 +1,21 @@
+{
+  "image": "ubuntu:24.04",
+  "image_digest": "ubuntu@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54",
+  "scan_started_at": "2026-06-13T16:56:35.781714+00:00",
+  "tool_versions": {
+    "trivy": "Version: 0.70.0",
+    "grype": "grype 0.112.0",
+    "dockle": "dockle version 0.4.15",
+    "syft": "syft 1.44.0"
+  },
+  "tool_details": {
+    "trivy": "Version: 0.70.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-06-13 13:09:43.935008726 +0000 UTC\n  NextUpdate: 2026-06-14 13:09:43.935008476 +0000 UTC\n  DownloadedAt: 2026-06-13 16:26:43.18660652 +0000 UTC\nJava DB:\n  Version: 1\n  UpdatedAt: 2026-06-12 02:16:14.458636715 +0000 UTC\n  NextUpdate: 2026-06-15 02:16:14.458636555 +0000 UTC\n  DownloadedAt: 2026-06-12 14:43:14.977811373 +0000 UTC\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-06-12 20:11:00.508659759 +0000 UTC",
+    "grype": "grype 0.112.0",
+    "dockle": "dockle version 0.4.15",
+    "syft": "syft 1.44.0"
+  },
+  "scanner_database": {
+    "trivy": "Version: 0.70.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-06-13 13:09:43.935008726 +0000 UTC\n  NextUpdate: 2026-06-14 13:09:43.935008476 +0000 UTC\n  DownloadedAt: 2026-06-13 16:26:43.18660652 +0000 UTC\nJava DB:\n  Version: 1\n  UpdatedAt: 2026-06-12 02:16:14.458636715 +0000 UTC\n  NextUpdate: 2026-06-15 02:16:14.458636555 +0000 UTC\n  DownloadedAt: 2026-06-12 14:43:14.977811373 +0000 UTC\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-06-12 20:11:00.508659759 +0000 UTC",
+    "grype": "Path:      /home/codep/.cache/grype/db/6/vulnerability.db\nSchema:    v6.1.7\nBuilt:     2026-06-13T07:33:12Z\nFrom:      https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.7_2026-06-13T00:58:17Z_1781335992.tar.zst?checksum=sha256%3A52e9be755ceb09f9f85a9bceeb6f7fe31ecf46b30f25949b2c3f10943361c1b0\nStatus:    valid"
+  }
+}

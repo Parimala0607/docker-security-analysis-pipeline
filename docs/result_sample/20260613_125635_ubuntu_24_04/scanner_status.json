@@ -1,0 +1,22 @@
+{
+  "trivy": {
+    "status": "ok",
+    "log": "results/20260613_125635_ubuntu_24_04/logs/trivy.log",
+    "log_exists": true
+  },
+  "grype": {
+    "status": "ok",
+    "log": "results/20260613_125635_ubuntu_24_04/logs/grype.log",
+    "log_exists": true
+  },
+  "dockle": {
+    "status": "ok",
+    "log": "results/20260613_125635_ubuntu_24_04/logs/dockle.log",
+    "log_exists": true
+  },
+  "syft": {
+    "status": "ok",
+    "log": "results/20260613_125635_ubuntu_24_04/logs/syft.log",
+    "log_exists": true
+  }
+}
