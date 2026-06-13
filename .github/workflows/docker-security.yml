@@ -1,0 +1,64 @@
+name: Docker Security Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install scanners
+        run: bash scripts/install_tools.sh
+
+      - name: Lint + type check
+        run: |
+          ruff check analysis/ remediation/ reports/
+          mypy analysis/ remediation/ reports/ --ignore-missing-imports
+
+      - name: Run unit tests
+        run: pytest tests/ -v
+
+      - name: Scan target image
+        run: bash pipeline.sh nginx:1.27
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+
+      - name: Fail on actionable critical risk (KEV-listed or fixable CRITICALs)
+        run: |
+          BLOCKERS=$(python3 -c "
+          import json
+          from pathlib import Path
+          results = sorted(Path('results').iterdir())[-1]
+          data = json.loads((results / 'enriched.json').read_text())
+          # Gate on what a team can actually act on: known-exploited CVEs, or
+          # CRITICALs with a published fix. Gating on 'any CRITICAL' makes the
+          # build permanently red on any real base image and trains people to
+          # ignore it.
+          blockers = [c for c in data if c.get('in_kev')
+                      or (c['severity'] == 'CRITICAL' and c.get('fixed_in') not in (None, '', 'N/A'))]
+          print(len(blockers))
+          ")
+          echo "Actionable blockers: $BLOCKERS"
+          [ "$BLOCKERS" -eq 0 ] || { echo "FAIL: $BLOCKERS actionable critical findings"; exit 1; }
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-report-${{ github.run_number }}
+          path: reports/*.html

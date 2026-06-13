@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Batch Security Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f8fafc; color: #0f172a; font-family: 'JetBrains Mono', monospace; padding: 40px; }
+  h1   { font-size: 1.7rem; margin-bottom: 6px; }
+  h2   { font-size: 1rem; color: #334155; margin: 30px 0 12px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; }
+  .meta { font-size: 0.78rem; color: #475569; margin-bottom: 26px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05); }
+  .card .num { font-size: 2rem; font-weight: 700; }
+  .card .lbl { font-size: 0.72rem; color: #64748b; margin-top: 4px; }
+  .CRITICAL { color: #dc2626; }
+  .HIGH     { color: #f97316; }
+  .MEDIUM   { color: #eab308; }
+  .LOW      { color: #22c55e; }
+  .pill { display: inline-block; margin: 0 6px 6px 0; padding: 3px 8px; border-radius: 999px; border: 1px solid #e2e8f0; background: #fff; color: #475569; font-size: 0.75rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 28px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+  th { background: #f1f5f9; padding: 10px 12px; text-align: left; color: #334155; border-bottom: 1px solid #e2e8f0; }
+  td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+  .bg-CRITICAL { background: #dc262622; color: #dc2626; }
+  .bg-HIGH     { background: #f9731622; color: #f97316; }
+  .bg-MEDIUM   { background: #eab30822; color: #eab308; }
+  .bg-LOW      { background: #22c55e22; color: #22c55e; }
+  .bg-P1       { background: #dc262633; color: #fca5a5; }
+  .bg-P2       { background: #f9731622; color: #fdba74; }
+  .bg-P3       { background: #f1f5f9; color: #64748b; }
+  .subtle { color: #64748b; }
+</style>
+</head>
+<body>
+
+<h1>Docker Security Batch Report</h1>
+<div class="meta">
+  Generated: {{ generated_at }} &nbsp;|&nbsp; Images scanned: <strong>{{ image_count }}</strong>
+</div>
+
+<div class="grid">
+  {% for sev in ["CRITICAL", "HIGH", "MEDIUM", "LOW"] %}
+  <div class="card">
+    <div class="num {{ sev }}">{{ severity_totals.get(sev, 0) }}</div>
+    <div class="lbl">{{ sev }} findings across the batch</div>
+  </div>
+  {% endfor %}
+</div>
+
+<div style="margin-bottom:24px;">
+  <span class="pill">Avg Trivy-only: {{ average_trivy_only if average_trivy_only is not none else 'N/A' }}%</span>
+  <span class="pill">Avg Grype-only: {{ average_grype_only if average_grype_only is not none else 'N/A' }}%</span>
+  <span class="pill">Total images: {{ image_count }}</span>
+</div>
+
+<h2>Most Vulnerable Images</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>CRITICAL</th>
+      <th>HIGH</th>
+      <th>MEDIUM</th>
+      <th>LOW</th>
+      <th>KEV</th>
+      <th>Trivy-only %</th>
+      <th>Grype-only %</th>
+      <th>Findings</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in worst_images %}
+    <tr>
+      <td><strong>{{ item.image }}</strong><br><span class="subtle">{{ item.result_dir }}</span></td>
+      <td><span class="badge bg-CRITICAL">{{ item.critical }}</span></td>
+      <td><span class="badge bg-HIGH">{{ item.high }}</span></td>
+      <td><span class="badge bg-MEDIUM">{{ item.medium }}</span></td>
+      <td><span class="badge bg-LOW">{{ item.low }}</span></td>
+      <td>{{ item.kev }}</td>
+      <td>{{ item.trivy_only_rate if item.trivy_only_rate is not none else 'N/A' }}</td>
+      <td>{{ item.grype_only_rate if item.grype_only_rate is not none else 'N/A' }}</td>
+      <td>{{ item.findings }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Top Risk Findings Across the Batch</h2>
+<table>
+  <thead>
+    <tr>
+      <th>CVE</th>
+      <th>Image</th>
+      <th>Package</th>
+      <th>Severity</th>
+      <th>EPSS</th>
+      <th>KEV</th>
+      <th>Priority</th>
+      <th>Risk</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in top_findings %}
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/{{ c.id }}" target="_blank" style="color:#2563eb">{{ c.id }}</a></td>
+      <td>{{ c.image }}</td>
+      <td>{{ c.package }}</td>
+      <td><span class="badge bg-{{ c.severity }}">{{ c.severity }}</span></td>
+      <td>{{ "%.1f"|format(c.epss * 100) }}%</td>
+      <td>{% if c.in_kev %}<strong style="color:#dc2626">YES</strong>{% else %}—{% endif %}</td>
+      <td><span class="badge bg-{{ c.priority.split('-')[0] }}">{{ c.priority }}</span></td>
+      <td>{{ c.risk_score }}</td>
+      <td style="color:#059669">{{ c.fixed_in }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Notes</h2>
+<div class="subtle" style="font-size:0.8rem; line-height:1.6;">
+  <p>The batch report summarises the latest scan directory for each image in results/ and ranks findings by the existing pipeline risk score. Use it as a triage map, then open the per-image HTML reports for deeper context when you need a full breakdown.</p>
+</div>
+
+</body>
+</html>

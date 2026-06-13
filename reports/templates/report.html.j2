@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Security Report — {{ image }}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ffffff; color: #0f172a; font-family: 'JetBrains Mono', monospace; padding: 40px; }
+  h1   { font-size: 1.6rem; color: #0f172a; margin-bottom: 4px; }
+  h2   { font-size: 1rem; color: #334155; margin: 32px 0 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; }
+  .meta { font-size: 0.75rem; color: #475569; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+  .card .num  { font-size: 2rem; font-weight: 700; }
+  .card .lbl  { font-size: 0.7rem; color: #64748b; margin-top: 4px; }
+  .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; background: #f8fafc; color: #475569; margin: 0 4px 4px 0; border: 1px solid #e2e8f0; }
+  .CRITICAL   { color: #dc2626; }
+  .HIGH       { color: #f97316; }
+  .MEDIUM     { color: #eab308; }
+  .LOW        { color: #22c55e; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 32px; }
+  th    { background: #f8fafc; padding: 10px 12px; text-align: left; color: #334155; font-weight: 600; border-bottom: 1px solid #e2e8f0; }
+  td    { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+  .bg-CRITICAL { background: #dc262622; color: #dc2626; }
+  .bg-HIGH     { background: #f9731622; color: #f97316; }
+  .bg-MEDIUM   { background: #eab30822; color: #eab308; }
+  .bg-LOW      { background: #22c55e22; color: #22c55e; }
+  .bg-P1       { background: #dc262633; color: #fca5a5; }
+  .bg-P2       { background: #f9731622; color: #fdba74; }
+  .bg-P3       { background: #f1f5f9;   color: #64748b; }
+  .bg-AFFECTED { background: #fee2e2; color: #b91c1c; }
+  .bg-NOT-AFFECTED { background: #ecfccb; color: #3f6212; }
+  .bg-EXPLOITABLE { background: #fee2e2; color: #991b1b; }
+  .bg-IN-TRIAGE { background: #ede9fe; color: #6d28d9; }
+  .bg-FALSE-POSITIVE { background: #e2e8f0; color: #334155; }
+  .bg-FIXED { background: #d1fae5; color: #065f46; }
+  .bg-UNKNOWN { background: #f8fafc; color: #64748b; }
+  .bg-REACHABLE { background: #fee2e2; color: #b91c1c; }
+  .bg-NOT-REACHABLE { background: #d1fae5; color: #065f46; }
+  .bg-UNKNOWN-REACHABILITY { background: #f8fafc; color: #64748b; }
+  .kev  { color: #dc2626; font-weight: 700; }
+  .chart { margin-bottom: 32px; }
+  .fp-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .fp-stat .num { font-size: 1.4rem; font-weight: 700; color: #f97316; }
+  .fp-stat .lbl { font-size: 0.7rem; color: #64748b; }
+  .small-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+  .small-box .num { font-size: 1.5rem; font-weight: 700; }
+  .small-box .lbl { font-size: 0.7rem; color: #64748b; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Docker Security Analysis Report</h1>
+<div class="meta">
+  Image: <strong>{{ image }}</strong>
+  &nbsp;|&nbsp; Generated: {{ timestamp }}
+  {% if metadata.get('image_digest') %}
+  &nbsp;|&nbsp; Digest: <strong>{{ metadata.get('image_digest') }}</strong>
+  {% endif %}
+</div>
+
+{% if metadata %}
+<h2>Execution Context</h2>
+<div class="grid-3">
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">{{ metadata.get('scan_started_at', 'N/A') }}</div>
+    <div class="lbl">Scan started (UTC)</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">{{ metadata.get('tool_versions', {}).get('trivy', 'N/A') }}</div>
+    <div class="lbl">Trivy version</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="font-size:1rem">{{ metadata.get('tool_versions', {}).get('grype', 'N/A') }}</div>
+    <div class="lbl">Grype version</div>
+  </div>
+</div>
+<div style="margin-bottom:24px;">
+  <span class="pill">Dockle: {{ metadata.get('tool_versions', {}).get('dockle', 'N/A') }}</span>
+  <span class="pill">Syft: {{ metadata.get('tool_versions', {}).get('syft', 'N/A') }}</span>
+  <span class="pill">Image digest: {{ metadata.get('image_digest', 'N/A') }}</span>
+</div>
+{% if metadata.get('scanner_database') %}
+<div style="margin-bottom:24px;">
+  <span class="pill">Trivy DB/status: {{ metadata.get('scanner_database', {}).get('trivy', 'N/A')|replace('\n', ' ')|truncate(160) }}</span>
+  <span class="pill">Grype DB/status: {{ metadata.get('scanner_database', {}).get('grype', 'N/A')|replace('\n', ' ')|truncate(160) }}</span>
+</div>
+{% endif %}
+{% endif %}
+
+{% if scanner_status %}
+<h2>Scanner Run Status</h2>
+<table>
+  <thead><tr><th>Scanner</th><th>Status</th><th>Log</th></tr></thead>
+  <tbody>
+    {% for name, item in scanner_status.items() %}
+    <tr>
+      <td>{{ name }}</td>
+      <td><span class="badge bg-{{ 'LOW' if item.status == 'ok' else 'CRITICAL' }}">{{ item.status }}</span></td>
+      <td style="color:#64748b">{{ item.log }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if policy %}
+<h2>Risk Policy</h2>
+<div style="margin-bottom:24px;">
+  <span class="pill">Status: {{ policy.get('status', 'N/A')|upper }}</span>
+  <span class="pill">Enforced: {{ 'yes' if policy.get('enforced') else 'no' }}</span>
+  <span class="pill">Prioritized findings: {{ policy.get('violation_count', 0) }}</span>
+</div>
+{% if policy.get('violations') %}
+<table>
+  <thead>
+    <tr><th>CVE</th><th>Package</th><th>Severity</th><th>EPSS</th><th>KEV</th><th>Priority</th></tr>
+  </thead>
+  <tbody>
+    {% for item in policy.get('violations', []) %}
+    {% if loop.index <= 10 %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.package }}</td>
+      <td><span class="badge bg-{{ item.severity }}">{{ item.severity }}</span></td>
+      <td>{{ "%.1f"|format(item.epss * 100) }}%</td>
+      <td>{% if item.in_kev %}<span class="kev">YES</span>{% else %}—{% endif %}</td>
+      <td>{{ item.priority }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+<!-- Severity Summary Cards -->
+<div class="grid">
+  {% for sev in ["CRITICAL", "HIGH", "MEDIUM", "LOW"] %}
+  <div class="card">
+    <div class="num {{ sev }}">{{ counts.get(sev, 0) }}</div>
+    <div class="lbl">{{ sev }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<h2>Priority Summary</h2>
+<div class="grid-3">
+  <div class="small-box">
+    <div class="num" style="color:#dc2626">{{ priority_counts.get('P1-CRITICAL', 0) }}</div>
+    <div class="lbl">P1 - patch immediately</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#f97316">{{ priority_counts.get('P2-HIGH', 0) }}</div>
+    <div class="lbl">P2 - patch this sprint</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#64748b">{{ priority_counts.get('P3-MONITOR', 0) }}</div>
+    <div class="lbl">P3 - monitor / backlog</div>
+  </div>
+</div>
+
+{% if vex_findings %}
+<h2>VEX / Reachability Evidence</h2>
+<div class="grid-3">
+  <div class="small-box">
+    <div class="num" style="color:#a3e635">{{ vex_counts.get('not_affected', 0) }}</div>
+    <div class="lbl">Not affected</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#fca5a5">{{ vex_counts.get('affected', 0) + vex_counts.get('exploitable', 0) }}</div>
+    <div class="lbl">Affected / exploitable</div>
+  </div>
+  <div class="small-box">
+    <div class="num" style="color:#94a3b8">{{ vex_counts.get('in_triage', 0) + vex_counts.get('fixed', 0) + vex_counts.get('false_positive', 0) }}</div>
+    <div class="lbl">Triage / resolved / false positive</div>
+  </div>
+</div>
+<div style="margin-bottom:24px;">
+  <span class="pill">Reachable: {{ reachability_counts.get('reachable', 0) }}</span>
+  <span class="pill">Not reachable: {{ reachability_counts.get('not_reachable', 0) }}</span>
+  <span class="pill">Unknown: {{ reachability_counts.get('unknown', 0) }}</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>CVE ID</th>
+      <th>Status</th>
+      <th>Reachability</th>
+      <th>Justification</th>
+      <th>Detail</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in vex_findings %}
+    <tr>
+      <td>{{ c.id }}</td>
+      <td><span class="badge bg-{{ c.vex_status|replace('_', '-')|upper }}">{{ c.vex_status }}</span></td>
+      <td><span class="badge bg-{{ c.vex_reachability|replace('_', '-')|upper }}">{{ c.vex_reachability }}</span></td>
+      <td>{{ c.vex_justification or '—' }}</td>
+      <td style="color:#94a3b8">{{ c.vex_detail or '—' }}</td>
+      <td style="color:#64748b">{{ c.vex_source or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<!-- Chart -->
+<div class="chart">
+  <img src="data:image/png;base64,{{ chart_b64 }}" alt="Severity Chart" style="max-width:500px;">
+</div>
+
+<!-- FP/FN Summary -->
+<h2>Scanner Disagreement Analysis</h2>
+<div style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">
+  This section is a heuristic comparison of Trivy and Grype findings.
+</div>
+<div class="fp-box">
+  <div class="fp-stat">
+    <div class="num">{{ validation.get('scanner_disagreement', {}).get('trivy_only_rate', validation.get('fp_rate', 'N/A')) }}%</div>
+    <div class="lbl">Trivy-only disagreement</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#dc2626">{{ validation.get('scanner_disagreement', {}).get('grype_only_rate', validation.get('fn_rate', 'N/A')) }}%</div>
+    <div class="lbl">Grype-only disagreement</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#00ff88">{{ validation.get('confirmed', [])|length }}</div>
+    <div class="lbl">Findings seen by both scanners</div>
+  </div>
+  <div class="fp-stat">
+    <div class="num" style="color:#a855f7">{{ cves | selectattr('in_kev') | list | length }}</div>
+    <div class="lbl">CVEs in CISA KEV (actively exploited)</div>
+  </div>
+</div>
+
+<!-- CVE Table -->
+<h2>CVE Findings — Prioritised by Risk Score</h2>
+<table>
+  <thead>
+    <tr>
+      <th>CVE ID</th>
+      <th>Package</th>
+      <th>Severity</th>
+      <th>CVSS</th>
+      <th>EPSS</th>
+      <th>KEV</th>
+      <th>VEX</th>
+      <th>Reachability</th>
+      <th>Risk Score</th>
+      <th>Priority</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in cves %}
+    <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/{{ c.id }}" target="_blank" style="color:#58a6ff">{{ c.id }}</a></td>
+      <td>{{ c.package }}</td>
+      <td><span class="badge bg-{{ c.severity }}">{{ c.severity }}</span></td>
+      <td>{{ c.cvss }}</td>
+      <td>{{ "%.1f"|format(c.epss * 100) }}%</td>
+      <td>{% if c.in_kev %}<span class="kev">YES</span>{% else %}—{% endif %}</td>
+      <td><span class="badge bg-{{ c.vex_status|replace('_', '-')|upper }}">{{ c.vex_status }}</span></td>
+      <td><span class="badge bg-{{ c.vex_reachability|replace('_', '-')|upper }}">{{ c.vex_reachability }}</span></td>
+      <td>{{ c.risk_score }}</td>
+      <td><span class="badge bg-{{ c.priority.split('-')[0] }}">{{ c.priority }}</span></td>
+      <td style="color:#86efac">{{ c.fixed_in }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Dockle CIS Findings -->
+{% if dockle and dockle.get('details') %}
+<h2>CIS Benchmark Findings (Dockle)</h2>
+<table>
+  <thead><tr><th>Check ID</th><th>Level</th><th>Title</th><th>Details</th></tr></thead>
+  <tbody>
+    {% for item in dockle.get('details', []) %}
+    <tr>
+      <td>{{ item.get('code', '') }}</td>
+      <td><span class="badge bg-{{ item.get('level', 'LOW').upper() }}">{{ item.get('level','').upper() }}</span></td>
+      <td>{{ item.get('title', '') }}</td>
+      <td style="color:#94a3b8">{{ item.get('details', [''])[0][:120] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<h2>Report Notes</h2>
+<div style="font-size:0.8rem; color:#94a3b8; line-height:1.6; margin-bottom:32px;">
+  <p>This report is strongest when paired with asset context: internet exposure, environment, and service ownership. Use P1/P2 grouping as the primary triage view. CVSS severity alone is not a complete prioritization signal.</p>
+</div>
+
+<div style="margin-top:48px; font-size:0.7rem; color:#334155; text-align:center;">
+  Generated by docker-security-pipeline · Data sources: Trivy, Grype, Dockle, Syft, NVD, EPSS, CISA KEV
+</div>
+
+</body>
+</html>

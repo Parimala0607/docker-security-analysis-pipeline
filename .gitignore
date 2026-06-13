@@ -1,0 +1,12 @@
+results/
+remediated/
+reports/*.html
+venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.env
+config/settings.local.yaml
+COMMANDS.md
+explain.md
